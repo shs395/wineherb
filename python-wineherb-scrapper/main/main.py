@@ -107,21 +107,31 @@ def getAvgPriceInWineSearcher(url):
         return 'ERROR'
 
 def getGrapeInWineSearcher(url):
-    url = url + unquote_plus('#t2')
-    driver.get(url)
-    html = driver.page_source
-    soup = BeautifulSoup(html, 'html.parser')
-    spanList = soup.select('div#tab-info > div.card-columns > div')
-    #div#tab-info > div.card-columns > div > div.card-body > div > a > span.font-ligjt-bold
-    print(spanList)
-    # firstSiteUrl = siteUrlList[0].a.attrs['href']
+    try:
+        url = url + unquote_plus('#t2')
+        driver.get(url)
+        html = driver.page_source
+        soup = BeautifulSoup(html, 'html.parser')
+        spanList = soup.select('div#tab-info > div.card-columns > div > div.card-body >  div.highlights > a > span.font-light-bold')
+        grape = spanList[2].text
+        return grape
+    except Exception as e:
+        print('에러 발생', e)
+        return 'ERROR'
 
 
 def getAlcholInWineSearcher(url):
-    url = url + unquote_plus('#t2')
-    driver.get(url)
-    html = driver.page_source
-    soup = BeautifulSoup(html, 'html.parser')
+    try:
+        url = url + unquote_plus('#t2')
+        driver.get(url)
+        html = driver.page_source
+        soup = BeautifulSoup(html, 'html.parser')
+        spanList = soup.select('div#tab-info > div.card-columns > div > div.card-body > div.attributes-list > div.mb-4 > div.text-more-line')
+        alcohol = spanList[0].text
+        return alcohol
+    except Exception as e:
+        print('에러 발생', e)
+        return 'ERROR'
 
     
 # max_row = 값이 있는 최대 행렬의 줄 값
@@ -155,11 +165,19 @@ for row in range(2, ws1.max_row+1):
         ws1.cell(row=row, column= 5).value = wineSearcherFirstSiteUrl 
         load_wb.save('result.xlsx')
 
-        # column6 = wine-searcher 평균 가격
+        # # column6 = wine-searcher 평균 가격
         avgPrice = getAvgPriceInWineSearcher(wineSearcherFirstSiteUrl)
         ws1.cell(row=row, column= 6).value = avgPrice
         load_wb.save('result.xlsx')
 
-        # getGrapeInWineSearcher(wineSearcherFirstSiteUrl)
-    
+        # column7 = grape (포도 품종)
+        grape = getGrapeInWineSearcher(wineSearcherFirstSiteUrl)
+        ws1.cell(row=row, column= 7).value = grape
+        load_wb.save('result.xlsx')
+
+        # column8 = Alcohol (알코올)
+        alcohol = getAlcholInWineSearcher(wineSearcherFirstSiteUrl)
+        ws1.cell(row=row, column= 8).value = alcohol
+        load_wb.save('result.xlsx')
+
     time.sleep(3)
