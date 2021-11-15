@@ -40,7 +40,7 @@ elif(platform.system() == 'Darwin'):
     driver.implicitly_wait(10)
 
 # klwines 계정정보 불러오기
-with open("../../klwines_account.txt") as f:
+with open("../../keys/klwines_account.txt") as f:
     lines = f.readlines()
     klwines_id = lines[0].strip()
     klwines_pw = lines[1].strip()
