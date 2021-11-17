@@ -238,6 +238,7 @@ loginKlwines(klwines_id, klwines_pw)
 # klwines 검색
 html = searchKlwines(search_keyword)
 row = 2
+
 while(1):
     # 마지막 페이지인경우
     if(isLastPage(html) == True):
