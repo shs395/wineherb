@@ -2,3 +2,6 @@
 ~/
 __pycache__/
 .DS_Store
+
+/python-wineherb-scrapper/*.xlsx
+/python-klwines-scrapper/*.xlsx
