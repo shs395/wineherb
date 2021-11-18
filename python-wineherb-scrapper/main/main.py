@@ -165,7 +165,7 @@ for row in range(2, ws1.max_row+1):
         ws1.cell(row=row, column= 5).value = wineSearcherFirstSiteUrl 
         load_wb.save('result.xlsx')
 
-        # # column6 = wine-searcher 평균 가격
+        # column6 = wine-searcher 평균 가격
         avgPrice = getAvgPriceInWineSearcher(wineSearcherFirstSiteUrl)
         ws1.cell(row=row, column= 6).value = avgPrice
         load_wb.save('result.xlsx')
